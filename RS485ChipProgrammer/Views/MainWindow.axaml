@@ -15,6 +15,45 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 
+    <Grid RowDefinitions="Auto, Auto, Auto, *, Auto" Margin="20">
+        <!-- Section 1: Connection Settings -->
+        <Border Grid.Row="0" Margin="0,0,0,10" Padding="15" CornerRadius="10" Background="#F0F0F0">
+            <StackPanel Spacing="10">
+                <TextBlock FontWeight="Bold" FontSize="16" Text="Connection Settings"/>
+                <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto" Margin="0,5,0,0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Port:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" ItemsSource="{Binding AvailablePorts}" SelectedItem="{Binding PortName}"/>
+                    <Button Grid.Row="0" Grid.Column="2" Content="{Binding ConnectButtonText}" Command="{Binding ConnectCommand}" Margin="10,0,0,0" IsEnabled="{Binding IsConnectButtonEnabled}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Baud Rate:" VerticalAlignment="Center" Margin="0,10,10,0"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" SelectedItem="{Binding BaudRate}" Margin="0,10,0,0" ItemsSource="{Binding AvailableBaudRates}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Section 2: Command & Response -->
+        <Border Grid.Row="1" Margin="0,0,0,10" Padding="15" CornerRadius="10" Background="#F0F0F0">
+            <StackPanel Spacing="10">
+                <TextBlock FontWeight="Bold" FontSize="16" Text="Command"/>
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBox Grid.Column="0" Text="{Binding CommandToSend}" Watermark="Enter command to send"/>
+                    <Button Grid.Column="1" Content="Send" Command="{Binding SendCommand}" Margin="10,0,0,0" IsEnabled="{Binding IsSendCommandEnabled}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Section 3: Status & Log -->
+        <Border Grid.Row="2" Margin="0,0,0,10" Padding="15" CornerRadius="10" Background="#F0F0F0">
+            <TextBlock FontWeight="Bold" FontSize="16" Text="Status"/>
+        </Border>
+
+        <Border Grid.Row="3" Margin="0" Padding="15" CornerRadius="10" Background="#F0F0F0">
+            <ScrollViewer>
+                <TextBlock Text="{Binding LogText}" TextWrapping="Wrap" />
+            </ScrollViewer>
+        </Border>
+
+    </Grid>
 </Window>
